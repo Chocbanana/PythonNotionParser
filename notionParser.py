@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+
 from argparse import ArgumentParser
 import pathlib
+
+from notion2Model import *
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -15,5 +18,26 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     ## Arg validation
+    if args.export_type == "html":
+        ToModel.validate_path(args.html_path)
+    elif args.export_type == "mdcsv":
+        ToModel.validate_path(args.mdcsv_path)
+    elif args.export_type == "both":
+        ToModel.validate_path(args.html_path)
+        ToModel.validate_path(args.mdcsv_path)
+
+    # Make sure appropriate paths given for selected export type
+
+    # Validate if out path already has files
+
+    ## Parse into model
+    if args.export_type == "html":
+        pass
+    elif args.export_type == "mdcsv":
+        mdcsv_parser = MdCsv2Model(args.mdcsv_path)
+        mdcsv_parser.parse()
+    elif args.export_type == "both":
+        pass
+
 
     print(args)
